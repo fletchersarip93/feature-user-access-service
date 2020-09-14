@@ -46,8 +46,12 @@ public class FeatureUserAccessRestController {
 	public void addFeatureUserAccess(
 			@RequestBody
 			@Valid
-			FeatureUserAccessDto featureUserAccessDto) throws ResourceNotFoundException {
-		featureUserAccessService.configureAccess(featureUserAccessDto.getEmail(), featureUserAccessDto.getFeatureName(), featureUserAccessDto.getEnable());
+			FeatureUserAccessDto featureUserAccessDto) throws UpdateFailedException {
+		try {
+			featureUserAccessService.configureAccess(featureUserAccessDto.getEmail(), featureUserAccessDto.getFeatureName(), featureUserAccessDto.getEnable());
+		} catch (ResourceNotFoundException e) {
+			throw new UpdateFailedException(e);
+		}
 	}
 
 }

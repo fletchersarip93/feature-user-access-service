@@ -485,7 +485,7 @@ public class FeatureUserAccessRestControllerTest {
 	
 	// valid format but non-existent email parameter
 	@Test
-	public void whenPostFeatureWithNonExistentEmailParameterThenReturn404NotFound() throws JSONException, Exception {
+	public void whenPostFeatureWithNonExistentEmailParameterThenReturn304() throws JSONException, Exception {
 		JSONObject requestBody = new JSONObject();
 		requestBody.put("email", NON_EXISTENT_EMAIL);
 		requestBody.put("featureName", FEATURE_NAME);
@@ -499,8 +499,8 @@ public class FeatureUserAccessRestControllerTest {
 		.perform(post("/feature")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(requestBody.toString()))
-		.andExpect(status().is(404))
-		.andExpect(jsonPath("messages", hasItem("User with email '" + NON_EXISTENT_EMAIL + "' cannot be found.")));
+		.andExpect(status().is(304))
+		.andExpect(jsonPath("messages", hasItem(containsString("User with email '" + NON_EXISTENT_EMAIL + "' cannot be found."))));
 	}
 	
 	// no featureName parameter
@@ -536,7 +536,7 @@ public class FeatureUserAccessRestControllerTest {
 	
 	// invalid data type featureName parameter
 	@Test
-	public void whenPostFeatureWithNonStringFeatureNameParameterThenTreatParamValueAsString() throws JSONException, Exception {
+	public void whenPostFeatureWithNonStringFeatureNameParameterThenTreatParamValueAsStringAndReturn304() throws JSONException, Exception {
 		JSONObject requestBody = new JSONObject();
 		requestBody.put("email", USER_EMAIL);
 		requestBody.put("featureName", NUMBER);
@@ -550,8 +550,8 @@ public class FeatureUserAccessRestControllerTest {
 		.perform(post("/feature")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(requestBody.toString()))
-		.andExpect(status().is(404))
-		.andExpect(jsonPath("messages", hasItem("Feature with name '3' cannot be found.")));
+		.andExpect(status().is(304))
+		.andExpect(jsonPath("messages", hasItem(containsString("Feature with name '3' cannot be found."))));
 	}
 	
 	// empty string featureName parameter
@@ -572,7 +572,7 @@ public class FeatureUserAccessRestControllerTest {
 	
 	// valid format but non-existent featureName parameter
 	@Test
-	public void whenPostFeatureWithNonExistentFeatureNameParameterThenReturn404NotFound() throws JSONException, Exception {
+	public void whenPostFeatureWithNonExistentFeatureNameParameterThenReturn304() throws JSONException, Exception {
 		willThrow(new ResourceNotFoundException(ErrorMessageFactory.featureNameNotFound(NON_EXISTENT_FEATURE_NAME)))
 		.given(featureUserAccessService)
 		.configureAccess(eq(USER_EMAIL), eq(NON_EXISTENT_FEATURE_NAME), anyBoolean());;
@@ -586,8 +586,8 @@ public class FeatureUserAccessRestControllerTest {
 		.perform(post("/feature")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(requestBody.toString()))
-		.andExpect(status().is(404))
-		.andExpect(jsonPath("messages", hasItem("Feature with name '" + NON_EXISTENT_FEATURE_NAME + "' cannot be found.")));
+		.andExpect(status().is(304))
+		.andExpect(jsonPath("messages", hasItem(containsString("Feature with name '" + NON_EXISTENT_FEATURE_NAME + "' cannot be found."))));
 	}
 	
 	

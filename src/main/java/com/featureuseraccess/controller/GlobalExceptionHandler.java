@@ -57,8 +57,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 						.collect(Collectors.toList())));
 	}
 	
+	@ExceptionHandler(UpdateFailedException.class)
+	@ResponseStatus(HttpStatus.NOT_MODIFIED)
+	protected ApiError handleUpdateFailedException(UpdateFailedException ex) {
+		return constructApiError(ex);
+	}
+	
 	private ApiError constructApiError(Throwable ex) {
 		return new ApiError(Collections.singletonList(ex.getMessage()));
 	}
+	
 
 }
