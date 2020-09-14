@@ -85,7 +85,7 @@ non-existence of the row for a user and a feature signify that there is no acces
 
 ## Security Implementation
 The security implemented for the API is:
-- Using HTTP Basic Authentication
+- HTTP Basic Authentication
 - JDBC authentication: the user credentials are stored in the embedded H2 database
 - Password encoder: BCrypt with 11 rounds
 
