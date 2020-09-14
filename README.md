@@ -108,7 +108,7 @@ The demo data created in the "import.sql" is as follows:
     - password: abc123
     - authorities:
       - DEVELOPER
-      - user
+      - USER
   - ben@emaildomain.com
     - password: abc123
     - authorities:
