@@ -31,7 +31,7 @@ the user can access the specified feature.
 
 | Code | Description |
 | ---- | ----------- |
-| 200 | information on whether the specified user is allowed access for the specified feature |
+| 200 | ok, response body contains information on whether the specified user is allowed access for the specified feature |
 | 400 | bad input parameter |
 | 404 | the specified user or feature cannot be found |
 | 500 | internal server error |
