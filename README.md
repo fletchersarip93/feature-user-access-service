@@ -1,5 +1,6 @@
-# Feature User Access API
-API for Product Managers to manage users’ accesses to features, i.e. enabling/disabling certain feature based on a user’s email and feature names.
+# Feature User Access API Summary
+API for Product Managers to manage users’ accesses to features, i.e. enabling/disabling certain feature based on a user’s email and feature names.  
+Please see the file **api-specification.yaml** for the detailed API specification.
 
 ## Version: 1.0.0
 
