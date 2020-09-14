@@ -69,13 +69,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	@ExceptionHandler(UpdateFailedException.class)
 	@ResponseStatus(HttpStatus.NOT_MODIFIED)
-	protected ApiError handleUpdateFailedException(UpdateFailedException ex) {
-		return constructApiError(ex);
-	}
+	protected void handleUpdateFailedException(UpdateFailedException ex) {}
 	
 	private ApiError constructApiError(Throwable ex) {
 		return new ApiError(Collections.singletonList(ex.getMessage()));
 	}
-	
 
 }
