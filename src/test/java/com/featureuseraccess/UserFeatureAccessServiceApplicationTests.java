@@ -70,6 +70,13 @@ class UserFeatureAccessServiceApplicationTests {
 	
 	private boolean isInitialized;
 	
+	
+	/**
+	 * Initial database condition:
+	 * - USER_EMAIL has access to FEATURE_NAME
+	 * - USER_EMAIL_NOT_ALLOWED does not have any access to any features
+	 * - FEATURE_NAME_NOT_ALLOWED does not have any users that can access it
+	 */
 	@BeforeEach
 	public void initDatabase() {
 		if (!isInitialized) {
@@ -329,7 +336,12 @@ class UserFeatureAccessServiceApplicationTests {
 	}
 	
 	//////// POST tests ////////
+	// all test for this POST API must try to change the original database condition
+	// by trying to allow previously disallowed user-feature
+	// or disallow previously allowed user-feature
+	
 	//// POSITIVE TESTS ////
+	
 	@Test
 	public void postFeatureShouldReturn200() throws JSONException, Exception {
 		JSONObject requestBody = new JSONObject();
@@ -343,6 +355,7 @@ class UserFeatureAccessServiceApplicationTests {
 				.content(requestBody.toString()))
 		.andExpect(status().is(200));
 		
+		// assert that database has changed
 		assertThatDatabaseHasRecord(USER_EMAIL_NOT_ALLOWED, FEATURE_NAME, true);
 	}
 
@@ -359,6 +372,7 @@ class UserFeatureAccessServiceApplicationTests {
 				.content(requestBody.toString()))
 		.andExpect(status().is(200));
 		
+		// assert that database has changed
 		assertThatDatabaseHasRecord(USER_EMAIL_NOT_ALLOWED, FEATURE_NAME, true);
 		
 		requestBody.put("email", USER_EMAIL_NOT_ALLOWED.toUpperCase());
@@ -371,6 +385,7 @@ class UserFeatureAccessServiceApplicationTests {
 				.content(requestBody.toString()))
 		.andExpect(status().is(200));
 		
+		// assert that database has changed
 		assertThatDatabaseHasRecord(USER_EMAIL_NOT_ALLOWED, FEATURE_NAME_NOT_ALLOWED, true);
 	}
 	
@@ -387,6 +402,7 @@ class UserFeatureAccessServiceApplicationTests {
 				.content(requestBody.toString()))
 		.andExpect(status().is(200));
 		
+		// assert that database has changed
 		assertThatDatabaseHasRecord(USER_EMAIL_NOT_ALLOWED, FEATURE_NAME, true);
 		
 		requestBody.put("email", USER_EMAIL);
@@ -399,6 +415,7 @@ class UserFeatureAccessServiceApplicationTests {
 				.content(requestBody.toString()))
 		.andExpect(status().is(200));
 		
+		// assert that database has changed
 		assertThatDatabaseHasRecord(USER_EMAIL, FEATURE_NAME, false);
 	}
 	
@@ -416,6 +433,7 @@ class UserFeatureAccessServiceApplicationTests {
 				.content(requestBody.toString()))
 		.andExpect(status().is(200));
 		
+		// assert that database has changed
 		assertThatDatabaseHasRecord(USER_EMAIL_NOT_ALLOWED, FEATURE_NAME, true);
 	}
 	
@@ -435,7 +453,8 @@ class UserFeatureAccessServiceApplicationTests {
 				.content(requestBody.toString()))
 		.andExpect(status().is(401));
 		
-		assertThatDatabaseHasRecord(USER_EMAIL_NOT_ALLOWED, FEATURE_NAME, false);
+		// assert that database did not change
+		assertThatDatabaseIsSameAsInitial();
 	}
 	
 	// security test: unauthorized user
@@ -452,7 +471,8 @@ class UserFeatureAccessServiceApplicationTests {
 				.content(requestBody.toString()))
 		.andExpect(status().is(403));
 		
-		assertThatDatabaseHasRecord(USER_EMAIL_NOT_ALLOWED, FEATURE_NAME, false);
+		// assert that database did not change
+		assertThatDatabaseIsSameAsInitial();
 	}
 	
 	// no email parameter
@@ -469,7 +489,8 @@ class UserFeatureAccessServiceApplicationTests {
 		.andExpect(status().is(400))
 		.andExpect(jsonPath("messages", hasItem(EMAIL_MUST_NOT_BE_BLANK)));
 		
-		assertThatFeatureHasNoUserAllowed(FEATURE_NAME_NOT_ALLOWED);
+		// assert that database did not change
+		assertThatDatabaseIsSameAsInitial();
 	}
 
 	// null email parameter
@@ -487,7 +508,8 @@ class UserFeatureAccessServiceApplicationTests {
 		.andExpect(status().is(400))
 		.andExpect(jsonPath("messages", hasItem(EMAIL_MUST_NOT_BE_BLANK)));
 		
-		assertThatFeatureHasNoUserAllowed(FEATURE_NAME_NOT_ALLOWED);
+		// assert that database did not change
+		assertThatDatabaseIsSameAsInitial();
 	}
 	
 	// invalid data type email parameter
@@ -505,7 +527,8 @@ class UserFeatureAccessServiceApplicationTests {
 		.andExpect(status().is(400))
 		.andExpect(jsonPath("messages", hasItem(EMAIL_MUST_BE_A_WELL_FORMED_EMAIL_ADDRESS)));
 		
-		assertThatFeatureHasNoUserAllowed(FEATURE_NAME_NOT_ALLOWED);
+		// assert that database did not change
+		assertThatDatabaseIsSameAsInitial();
 	}
 	
 	// empty string email parameter
@@ -523,7 +546,8 @@ class UserFeatureAccessServiceApplicationTests {
 		.andExpect(status().is(400))
 		.andExpect(jsonPath("messages", hasItem(EMAIL_MUST_NOT_BE_BLANK)));
 		
-		assertThatFeatureHasNoUserAllowed(FEATURE_NAME_NOT_ALLOWED);
+		// assert that database did not change
+		assertThatDatabaseIsSameAsInitial();
 	}
 	
 	// invalid format email parameter value
@@ -541,7 +565,8 @@ class UserFeatureAccessServiceApplicationTests {
 		.andExpect(status().is(400))
 		.andExpect(jsonPath("messages", hasItem(EMAIL_MUST_BE_A_WELL_FORMED_EMAIL_ADDRESS)));
 		
-		assertThatFeatureHasNoUserAllowed(FEATURE_NAME_NOT_ALLOWED);
+		// assert that database did not change
+		assertThatDatabaseIsSameAsInitial();
 	}
 	
 	// valid format but non-existent email parameter
@@ -558,7 +583,8 @@ class UserFeatureAccessServiceApplicationTests {
 				.content(requestBody.toString()))
 		.andExpect(status().is(304));
 		
-		assertThatFeatureHasNoUserAllowed(FEATURE_NAME_NOT_ALLOWED);
+		// assert that database did not change
+		assertThatDatabaseIsSameAsInitial();
 	}
 	
 	// no featureName parameter
@@ -574,6 +600,9 @@ class UserFeatureAccessServiceApplicationTests {
 				.content(requestBody.toString()))
 		.andExpect(status().is(400))
 		.andExpect(jsonPath("messages", hasItem(FEATURE_NAME_MUST_NOT_BE_BLANK)));
+		
+		// assert that database did not change
+		assertThatDatabaseIsSameAsInitial();
 	}
 	
 	// null featureName parameter
@@ -590,6 +619,9 @@ class UserFeatureAccessServiceApplicationTests {
 				.content(requestBody.toString()))
 		.andExpect(status().is(400))
 		.andExpect(jsonPath("messages", hasItem(FEATURE_NAME_MUST_NOT_BE_BLANK)));
+		
+		// assert that database did not change
+		assertThatDatabaseIsSameAsInitial();
 	}
 	
 	// invalid data type featureName parameter
@@ -605,6 +637,9 @@ class UserFeatureAccessServiceApplicationTests {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(requestBody.toString()))
 		.andExpect(status().is(304));
+		
+		// assert that database did not change
+		assertThatDatabaseIsSameAsInitial();
 	}
 	
 	// empty string featureName parameter
@@ -621,6 +656,9 @@ class UserFeatureAccessServiceApplicationTests {
 				.content(requestBody.toString()))
 		.andExpect(status().is(400))
 		.andExpect(jsonPath("messages", hasItem(FEATURE_NAME_MUST_NOT_BE_BLANK)));
+		
+		// assert that database did not change
+		assertThatDatabaseIsSameAsInitial();
 	}
 	
 	// valid format but non-existent featureName parameter
@@ -636,11 +674,16 @@ class UserFeatureAccessServiceApplicationTests {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(requestBody.toString()))
 		.andExpect(status().is(304));
+		
+		// assert that database did not change
+		assertThatDatabaseIsSameAsInitial();
 	}
 	
 	// no enable parameter
 	@Test
 	public void whenPostFeatureWithoutEnableParameterThenReturn400BadRequest() throws JSONException, Exception {
+		// non-existing enable parameter have the risk of setting to "false"
+		// hence test on an already allowed user-feature pair
 		JSONObject requestBody = new JSONObject();
 		requestBody.put("email", USER_EMAIL);
 		requestBody.put("featureName", FEATURE_NAME);
@@ -652,12 +695,15 @@ class UserFeatureAccessServiceApplicationTests {
 		.andExpect(status().is(400))
 		.andExpect(jsonPath("messages", hasItem(ENABLE_MUST_NOT_BE_NULL)));
 		
-		assertThatDatabaseHasRecord(USER_EMAIL, FEATURE_NAME, true);
+		// assert that database did not change
+		assertThatDatabaseIsSameAsInitial();
 	}
 	
 	// null enable parameter
 	@Test
 	public void whenPostFeatureWithNullEnableParameterThenReturn400BadRequest() throws JSONException, Exception {
+		// null enable parameter have the risk of setting to "false"
+		// hence test on an already allowed user-feature pair
 		JSONObject requestBody = new JSONObject();
 		requestBody.put("email", USER_EMAIL);
 		requestBody.put("featureName", FEATURE_NAME);
@@ -670,7 +716,8 @@ class UserFeatureAccessServiceApplicationTests {
 		.andExpect(status().is(400))
 		.andExpect(jsonPath("messages", hasItem(ENABLE_MUST_NOT_BE_NULL)));
 		
-		assertThatDatabaseHasRecord(USER_EMAIL, FEATURE_NAME, true);
+		// assert that database did not change
+		assertThatDatabaseIsSameAsInitial();
 	}
 	
 	// test multiple bad request messages
@@ -687,6 +734,9 @@ class UserFeatureAccessServiceApplicationTests {
 		.andExpect(jsonPath("messages", hasItem(FEATURE_NAME_MUST_NOT_BE_BLANK)))
 		.andExpect(jsonPath("messages", hasItem(EMAIL_MUST_NOT_BE_BLANK)))
 		.andExpect(jsonPath("messages", hasItem(ENABLE_MUST_NOT_BE_NULL)));
+		
+		// assert that database did not change
+		assertThatDatabaseIsSameAsInitial();
 	}
 	
 	// test malformed JSON request body
@@ -704,7 +754,8 @@ class UserFeatureAccessServiceApplicationTests {
 		.andExpect(status().is(400))
 		.andExpect(jsonPath("messages", hasItem(containsString("JSON parse error"))));
 		
-		assertThatDatabaseHasRecord(USER_EMAIL_NOT_ALLOWED, FEATURE_NAME, false);
+		// assert that database did not change
+		assertThatDatabaseIsSameAsInitial();
 	}
 	
 	private void assertThatDatabaseHasRecord(String userEmail, String featureName, boolean canAccess) {
@@ -715,9 +766,20 @@ class UserFeatureAccessServiceApplicationTests {
 		assertThat(featureOptional.get().checkAllows(userOptional.get())).isEqualTo(canAccess);
 	}
 	
-	private void assertThatFeatureHasNoUserAllowed(String featureName) throws ResourceNotFoundException {
-		Feature feature = featureRepository.findByNameIgnoreCase(featureName).orElseThrow(()->new ResourceNotFoundException());
-		assertThat(feature.getUsersAllowed()).hasSize(0);
+	private void assertThatDatabaseIsSameAsInitial() throws ResourceNotFoundException {
+		Feature featureVeryImportant = featureRepository.findByNameIgnoreCase(FEATURE_NAME_NOT_ALLOWED).orElseThrow(()->new ResourceNotFoundException());
+		assertThat(featureVeryImportant.getUsersAllowed()).hasSize(0);
+		
+		Feature feature = featureRepository.findByNameIgnoreCase(FEATURE_NAME).orElseThrow(()->new ResourceNotFoundException());
+		assertThat(feature.getUsersAllowed()).hasSize(1);
+		
+		User user = userRepository.findByEmailIgnoreCase(USER_EMAIL).orElseThrow(()->new ResourceNotFoundException());
+		User userNotAllowed = userRepository.findByEmailIgnoreCase(USER_EMAIL_NOT_ALLOWED).orElseThrow(()->new ResourceNotFoundException());
+		
+		assertThat(feature.checkAllows(user)).isTrue();
+		assertThat(feature.checkAllows(userNotAllowed)).isFalse();
+		assertThat(featureVeryImportant.checkAllows(user)).isFalse();
+		assertThat(featureVeryImportant.checkAllows(userNotAllowed)).isFalse();
 	}
 
 }
