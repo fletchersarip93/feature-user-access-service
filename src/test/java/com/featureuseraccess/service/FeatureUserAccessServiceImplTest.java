@@ -1,7 +1,6 @@
 package com.featureuseraccess.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.not;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
@@ -80,17 +79,17 @@ class FeatureUserAccessServiceImplTest {
 
 	@Test
 	void checkAccessOnAllowedUserAndAllowedFeatureShouldReturnTrue() throws ResourceNotFoundException {
-		assertThat(service.checkAccess(USER_EMAIL, FEATURE_NAME));
+		assertThat(service.checkAccess(USER_EMAIL, FEATURE_NAME)).isTrue();
 	}
 	
 	@Test
 	void checkAccessOnNotAllowedUserShouldReturnFalse() throws ResourceNotFoundException {
-		assertThat(not(service.checkAccess(USER_EMAIL_NOT_ALLOWED, FEATURE_NAME)));
+		assertThat(service.checkAccess(USER_EMAIL_NOT_ALLOWED, FEATURE_NAME)).isFalse();
 	}
 	
 	@Test
 	void checkAccessOnNotAllowedFeatureShouldReturnFalse() throws ResourceNotFoundException {
-		assertThat(not(service.checkAccess(USER_EMAIL, FEATURE_NAME_NOT_ALLOWED)));
+		assertThat(service.checkAccess(USER_EMAIL, FEATURE_NAME_NOT_ALLOWED)).isFalse();
 	}
 
 	@Test

@@ -40,12 +40,12 @@ class UserRepositoryTest {
 	void findByEmailIgnoreCaseShouldIgnoreCaseOfEmail() {
 		Optional<User> userOptional = userRepository.findByEmailIgnoreCase(USER_EMAIL.toLowerCase());
 		
-		assertThat(userOptional.isPresent());
+		assertThat(userOptional.isPresent()).isTrue();
 		assertThat(userOptional.get().getEmail()).isEqualTo(USER_EMAIL);
 		
 		userOptional = userRepository.findByEmailIgnoreCase(USER_EMAIL.toUpperCase());
 		
-		assertThat(userOptional.isPresent());
+		assertThat(userOptional.isPresent()).isTrue();
 		assertThat(userOptional.get().getEmail()).isEqualTo(USER_EMAIL);
 	}
 

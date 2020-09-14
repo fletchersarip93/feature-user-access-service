@@ -3,6 +3,7 @@ package com.featureuseraccess.controller;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.eq;
@@ -617,6 +618,22 @@ public class FeatureUserAccessRestControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(requestBody.toString()))
 		.andExpect(status().is(400))
+		.andExpect(jsonPath("messages", hasItem(ENABLE_MUST_NOT_BE_NULL)));
+	}
+	
+	// test multiple bad request messages
+	@Test
+	public void whenPostFeatureWithMissingAllMandatoryParametersInRequestBodyThenReturn400BadRequestWithMultipleMessages() throws Exception {
+		JSONObject requestBody = new JSONObject();
+		
+		mockMvc
+		.perform(post("/feature")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(requestBody.toString()))
+		.andExpect(status().is(400))
+		.andExpect(jsonPath("messages", hasSize(3)))
+		.andExpect(jsonPath("messages", hasItem(FEATURE_NAME_MUST_NOT_BE_BLANK)))
+		.andExpect(jsonPath("messages", hasItem(EMAIL_MUST_NOT_BE_BLANK)))
 		.andExpect(jsonPath("messages", hasItem(ENABLE_MUST_NOT_BE_NULL)));
 	}
 	

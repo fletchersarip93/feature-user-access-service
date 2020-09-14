@@ -1,7 +1,6 @@
 package com.featureuseraccess.entity;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.not;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import javax.persistence.PersistenceException;
@@ -28,12 +27,12 @@ class FeatureTest {
 		feature.allowUser(user1);
 		feature.allowUser(user2);
 		
-		assertThat(feature.checkAllows(user1));
-		assertThat(feature.checkAllows(user2));
+		assertThat(feature.checkAllows(user1)).isTrue();
+		assertThat(feature.checkAllows(user2)).isTrue();
 		
 		feature.disallowUser(user2);
 		
-		assertThat(not(feature.checkAllows(user2)));
+		assertThat(feature.checkAllows(user2)).isFalse();
 	}
 	
 	@Test

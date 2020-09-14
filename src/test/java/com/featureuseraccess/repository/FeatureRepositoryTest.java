@@ -39,12 +39,12 @@ class FeatureRepositoryTest {
 	void findByNameIgnoreCaseShouldIgnoreCaseOfFeatureName() {
 		Optional<Feature> featureOptional = featureRepository.findByNameIgnoreCase(FEATURE_NAME.toLowerCase());
 		
-		assertThat(featureOptional.isPresent());
+		assertThat(featureOptional.isPresent()).isTrue();
 		assertThat(featureOptional.get().getName()).isEqualTo(FEATURE_NAME);
 		
 		featureOptional = featureRepository.findByNameIgnoreCase(FEATURE_NAME.toUpperCase());
 		
-		assertThat(featureOptional.isPresent());
+		assertThat(featureOptional.isPresent()).isTrue();
 		assertThat(featureOptional.get().getName()).isEqualTo(FEATURE_NAME);
 	}
 
