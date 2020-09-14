@@ -1,5 +1,5 @@
 # Feature User Access API
-API to manage users’ accesses to new features via feature switches, i.e. enabling/disabling certain feature based on a user’s email and feature names).
+API to manage users’ accesses to features, i.e. enabling/disabling certain feature based on a user’s email and feature names.
 
 ## Version: 1.0.0
 
@@ -31,7 +31,7 @@ the user can access the specified feature.
 
 | Code | Description |
 | ---- | ----------- |
-| 200 | ok, response body contains information on whether the specified user is allowed access for the specified feature |
+| 200 | ok, returns user's access permission for the feature |
 | 400 | bad input parameter |
 | 404 | the specified user or feature cannot be found |
 | 500 | internal server error |
@@ -50,7 +50,7 @@ you can configure the user's access to the specified feature.
 
 | Code | Description |
 | ---- | ----------- |
-| 200 | user-feature access succesfully configured |
+| 200 | ok, user-feature access succesfully configured |
 | 304 | not modified |
 | 400 | bad input parameter |
 | 500 | internal server error |
