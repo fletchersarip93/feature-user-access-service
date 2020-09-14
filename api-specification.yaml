@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  description: >-
+    API to manage users’ accesses to features, i.e. enabling/disabling certain feature based on a user’s email and feature names.
+  version: "1.0.0"
+  title: Feature User Access API
+  contact:
+    email: fletchersarip@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+paths:
+  /feature:
+    get:
+      tags:
+        - /feature
+      summary: get access permission of a user for a feature
+      operationId: getFeatureUserAccess
+      description: |
+        By passing in the user's email and feature's name, you can check whether
+        the user can access the specified feature.
+      parameters:
+        - in: query
+          name: email
+          description: user's email (case-insensitive)
+          required: true
+          schema:
+            type: string
+            format: email
+            example: user1@emaildomain.com
+        - in: query
+          name: featureName
+          description: name of the feature (case-insensitive)
+          required: true
+          schema:
+            type: string
+            example: feature-name-1
+      responses:
+        '200':
+          description: ok, returns user's access permission for the feature
+          content:
+            application/json:
+              schema:
+                type: object
+                description: information on whether the specified user is allowed access for the specified feature
+                required:
+                  - canAccess
+                properties:
+                  canAccess:
+                    type: boolean
+                    description: will be true if user has access to the feature
+                    example: true
+        '400':
+          description: bad input parameter
+        '404':
+          description: the specified user or feature cannot be found
+        '500':
+          description: internal server error
+    post:
+      tags:
+        - /feature
+      summary: configure a user's access for a feature
+      operationId: setFeatureUserAccess
+      description: |
+        By passing in a user's email, a feature's name, and a boolean value on whether to give access or not,
+        you can configure the user's access to the specified feature.
+      responses:
+        '200':
+          description: ok, user-feature access succesfully configured
+        '304':
+          description: not modified
+        '400':
+          description: bad input parameter
+        '500':
+          description: internal server error
+      requestBody:
+        required: true
+        description: User-feature access to be configured
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - featureName
+                - email
+                - enable
+              properties:
+                featureName:
+                  type: string
+                  description: name of the feature (case-insensitive)
+                  example: feature-name-1
+                email:
+                  type: string
+                  format: email
+                  description: user's email (case-insensitive)
+                  example: user1@emaildomain.com
+                enable:
+                  type: boolean
+                  description: give true to enable access of the specified feature for the specified user
+                  example: true
