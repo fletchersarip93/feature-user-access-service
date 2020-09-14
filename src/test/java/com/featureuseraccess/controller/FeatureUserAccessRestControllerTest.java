@@ -28,6 +28,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.featureuseraccess.service.ErrorMessageFactory;
 import com.featureuseraccess.service.FeatureUserAccessService;
 import com.featureuseraccess.service.ResourceNotFoundException;
+import com.featureuseraccess.service.UpdateFailedException;
 
 @WebMvcTest(FeatureUserAccessRestController.class)
 @WithMockUser(authorities = "PRODUCT_MANAGER")
@@ -491,7 +492,7 @@ public class FeatureUserAccessRestControllerTest {
 		requestBody.put("featureName", FEATURE_NAME);
 		requestBody.put("enable", true);
 		
-		willThrow(new ResourceNotFoundException(ErrorMessageFactory.userEmailNotFound(NON_EXISTENT_EMAIL)))
+		willThrow(new UpdateFailedException(ErrorMessageFactory.userEmailNotFound(NON_EXISTENT_EMAIL)))
 		.given(featureUserAccessService)
 		.configureAccess(NON_EXISTENT_EMAIL, FEATURE_NAME, true);
 		
@@ -542,7 +543,7 @@ public class FeatureUserAccessRestControllerTest {
 		requestBody.put("featureName", NUMBER);
 		requestBody.put("enable", true);
 		
-		willThrow(new ResourceNotFoundException(ErrorMessageFactory.featureNameNotFound(String.valueOf(NUMBER))))
+		willThrow(new UpdateFailedException(ErrorMessageFactory.featureNameNotFound(String.valueOf(NUMBER))))
 		.given(featureUserAccessService)
 		.configureAccess(USER_EMAIL, String.valueOf(NUMBER), true);;
 		
@@ -573,7 +574,7 @@ public class FeatureUserAccessRestControllerTest {
 	// valid format but non-existent featureName parameter
 	@Test
 	public void whenPostFeatureWithNonExistentFeatureNameParameterThenReturn304() throws JSONException, Exception {
-		willThrow(new ResourceNotFoundException(ErrorMessageFactory.featureNameNotFound(NON_EXISTENT_FEATURE_NAME)))
+		willThrow(new UpdateFailedException(ErrorMessageFactory.featureNameNotFound(NON_EXISTENT_FEATURE_NAME)))
 		.given(featureUserAccessService)
 		.configureAccess(eq(USER_EMAIL), eq(NON_EXISTENT_FEATURE_NAME), anyBoolean());;
 		

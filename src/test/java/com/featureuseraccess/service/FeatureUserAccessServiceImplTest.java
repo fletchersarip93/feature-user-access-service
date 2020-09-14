@@ -94,27 +94,27 @@ class FeatureUserAccessServiceImplTest {
 	}
 
 	@Test
-	void configureAccessOnExistingUserEmailAndFeatureNameShouldNotThrowException() throws ResourceNotFoundException {
+	void configureAccessOnExistingUserEmailAndFeatureNameShouldNotThrowException() throws UpdateFailedException {
 		// just call the method and expect that no exception is thrown
 		service.configureAccess(USER_EMAIL, FEATURE_NAME, true);
 	}
 	
 	@Test
-	void configureAccessOnNonExistentUserEmailShouldThrowException() throws ResourceNotFoundException {
+	void configureAccessOnNonExistentUserEmailShouldThrowException() throws UpdateFailedException {
 		String nonExistentEmail = "nonexistentuser@emaildomain.com";
-		ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, ()->{
+		UpdateFailedException exception = assertThrows(UpdateFailedException.class, ()->{
 			service.configureAccess(nonExistentEmail, FEATURE_NAME, true);
 		});
-		assertThat(exception.getMessage()).isEqualTo("User with email '" + nonExistentEmail + "' cannot be found.");
+		assertThat(exception.getMessage()).contains("User with email '" + nonExistentEmail + "' cannot be found.");
 	}
 	
 	@Test
-	void configureAccessOnNonExistentFeatureNameShouldThrowException() throws ResourceNotFoundException {
+	void configureAccessOnNonExistentFeatureNameShouldThrowException() throws UpdateFailedException {
 		String nonExistentFeatureName = "non-existent-feature";
-		ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, ()->{
+		UpdateFailedException exception = assertThrows(UpdateFailedException.class, ()->{
 			service.configureAccess(USER_EMAIL, nonExistentFeatureName, true);
 		});
-		assertThat(exception.getMessage()).isEqualTo("Feature with name '" + nonExistentFeatureName + "' cannot be found.");
+		assertThat(exception.getMessage()).contains("Feature with name '" + nonExistentFeatureName + "' cannot be found.");
 	}
 
 }

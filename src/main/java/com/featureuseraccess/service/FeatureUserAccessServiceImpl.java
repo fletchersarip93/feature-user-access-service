@@ -27,17 +27,21 @@ public class FeatureUserAccessServiceImpl implements FeatureUserAccessService {
 		return canAccess;
 	}
 	
-	public void configureAccess(String userEmail, String featureName, boolean enable) throws ResourceNotFoundException {
-		Feature feature = findFeatureByName(featureName);
-		User user = findUserByEmail(userEmail);
-		
-		if (enable) { 
-			feature.allowUser(user);
-		} else {
-			feature.disallowUser(user);
+	public void configureAccess(String userEmail, String featureName, boolean enable) throws UpdateFailedException {
+		try {
+			Feature feature = findFeatureByName(featureName);
+			User user = findUserByEmail(userEmail);
+			
+			if (enable) { 
+				feature.allowUser(user);
+			} else {
+				feature.disallowUser(user);
+			}
+			
+			featureRepository.save(feature);
+		} catch (ResourceNotFoundException e) {
+			throw new UpdateFailedException(e);
 		}
-		
-		featureRepository.save(feature);
 	}
 	
 	private User findUserByEmail(String email) throws ResourceNotFoundException {

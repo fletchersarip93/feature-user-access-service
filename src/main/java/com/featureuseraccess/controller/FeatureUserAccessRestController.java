@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.featureuseraccess.dto.FeatureUserAccessDto;
 import com.featureuseraccess.service.FeatureUserAccessService;
 import com.featureuseraccess.service.ResourceNotFoundException;
+import com.featureuseraccess.service.UpdateFailedException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -47,11 +48,7 @@ public class FeatureUserAccessRestController {
 			@RequestBody
 			@Valid
 			FeatureUserAccessDto featureUserAccessDto) throws UpdateFailedException {
-		try {
-			featureUserAccessService.configureAccess(featureUserAccessDto.getEmail(), featureUserAccessDto.getFeatureName(), featureUserAccessDto.getEnable());
-		} catch (ResourceNotFoundException e) {
-			throw new UpdateFailedException(e);
-		}
+		featureUserAccessService.configureAccess(featureUserAccessDto.getEmail(), featureUserAccessDto.getFeatureName(), featureUserAccessDto.getEnable());
 	}
 
 }

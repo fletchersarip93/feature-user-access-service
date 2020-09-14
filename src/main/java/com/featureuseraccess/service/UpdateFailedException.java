@@ -1,4 +1,4 @@
-package com.featureuseraccess.controller;
+package com.featureuseraccess.service;
 
 public class UpdateFailedException extends Exception {
 
