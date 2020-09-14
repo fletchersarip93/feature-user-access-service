@@ -1,7 +1,6 @@
 INSERT INTO authority (id, authority) VALUES (1, 'PRODUCT_MANAGER');
 INSERT INTO authority (id, authority) VALUES (2, 'USER');
 INSERT INTO authority (id, authority) VALUES (3, 'DEVELOPER');
-INSERT INTO authority (authority) VALUES ('other');
 
 INSERT INTO user (id, email, password, enabled, expired, account_expired, credentials_expired, locked) VALUES (1, 'fletchersarip@gmail.com', '$2y$11$WBktA7QiZhtmmLJ.Y2BJDu1mfCX4CB4.6IiMozbGyoCv60cdNJLiu', TRUE, FALSE, FALSE, FALSE, FALSE);
 INSERT INTO user (id, email, password, enabled, expired, account_expired, credentials_expired, locked) VALUES (2, 'jack@gmail.com', '$2y$11$WBktA7QiZhtmmLJ.Y2BJDu1mfCX4CB4.6IiMozbGyoCv60cdNJLiu', TRUE, FALSE, FALSE, FALSE, FALSE);

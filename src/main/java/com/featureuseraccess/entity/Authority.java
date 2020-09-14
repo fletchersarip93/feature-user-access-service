@@ -17,7 +17,7 @@ public class Authority {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique = true, columnDefinition = "VARCHAR_IGNORECASE")
 	@NotBlank
 	private String authority;
 	

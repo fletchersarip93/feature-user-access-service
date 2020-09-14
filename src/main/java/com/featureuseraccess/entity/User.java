@@ -26,7 +26,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique = true, columnDefinition = "VARCHAR_IGNORECASE")
 	@Email
 	@NotBlank
 	private String email;
