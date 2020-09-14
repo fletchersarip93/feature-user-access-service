@@ -9,6 +9,12 @@ import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 
+/**
+ * Entity to represent user's authority.
+ * 
+ * @author Fletcher Sarip
+ *
+ */
 @Entity
 @Data
 public class Authority {

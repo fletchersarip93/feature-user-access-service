@@ -23,6 +23,12 @@ import com.featureuseraccess.service.UpdateFailedException;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * REST controller to expose the Feature User Access Service.
+ * 
+ * @author Fletcher Sarip
+ *
+ */
 @RestController
 @RequestMapping("/feature")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
@@ -31,6 +37,13 @@ public class FeatureUserAccessRestController {
 	
 	private final FeatureUserAccessService featureUserAccessService;
 	
+	/**
+	 * Get the access permission of the given user email for the given feature name.
+	 * @param email Email of the user.
+	 * @param featureName Name of the feature.
+	 * @return Key-value pair, where the key is "canAccess", which indicates whether the user has access to the feature.
+	 * @throws ResourceNotFoundException If user with the given email or feature with the given name cannot be found.
+	 */
 	@GetMapping
 	public Map<String, Boolean> getFeatureAccess (
 			@RequestParam(required = true)
@@ -43,6 +56,12 @@ public class FeatureUserAccessRestController {
 		return Collections.singletonMap("canAccess", featureUserAccessService.checkAccess(email, featureName));
 	}
 	
+	/**
+	 * Configure access permission of a user for a feature.
+	 * @param featureUserAccessDto Data transfer object containing the details of the access-permission to be configured.
+	 * @throws UpdateFailedException If user with the given email or feature with the given name cannot be found, or any other possible
+	 * error on the update mechanism.
+	 */
 	@PostMapping
 	public void addFeatureUserAccess(
 			@RequestBody

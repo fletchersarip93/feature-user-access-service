@@ -20,6 +20,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.featureuseraccess.service.ResourceNotFoundException;
 import com.featureuseraccess.service.UpdateFailedException;
 
+/**
+ * Exception handlers of the API.
+ * 
+ * @author Fletcher Sarip
+ *
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 

@@ -11,6 +11,12 @@ import com.featureuseraccess.entity.User;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * User principal implementation for authentication of this application.
+ * 
+ * @author Fletcher Sarip
+ *
+ */
 @RequiredArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 

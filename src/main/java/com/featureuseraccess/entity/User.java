@@ -18,6 +18,12 @@ import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 
+/**
+ * Entity to represent User.
+ * 
+ * @author Fletcher Sarip
+ *
+ */
 @Entity
 @Data
 public class User {
@@ -52,6 +58,10 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name = "authority_id"))
 	private List<Authority> authorities = new ArrayList<>();
 
+	/**
+	 * Adds the given authority to this user.
+	 * @param auth The authority to be given to this user.
+	 */
 	public void addAuthority(Authority auth) {
 		this.authorities.add(auth);
 	}

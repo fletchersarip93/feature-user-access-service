@@ -1,5 +1,11 @@
 package com.featureuseraccess.service;
 
+/**
+ * Exception to signify that a certain resource cannot be found.
+ * 
+ * @author Fletcher Sarip
+ *
+ */
 public class ResourceNotFoundException extends Exception {
 	
 	private static final long serialVersionUID = -8613586731635490498L;

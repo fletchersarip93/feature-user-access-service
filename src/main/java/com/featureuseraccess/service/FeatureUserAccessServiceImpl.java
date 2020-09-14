@@ -10,6 +10,12 @@ import com.featureuseraccess.repository.UserRepository;
 
 import lombok.NoArgsConstructor;
 
+/**
+ * Implementation of the Feature User Access Service for handling access permission of a certain user for a certain feature.
+ * 
+ * @author Fletcher Sarip
+ *
+ */
 @Service
 @NoArgsConstructor
 public class FeatureUserAccessServiceImpl implements FeatureUserAccessService {
@@ -20,6 +26,7 @@ public class FeatureUserAccessServiceImpl implements FeatureUserAccessService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Override
 	public boolean checkAccess(String userEmail, String featureName) throws ResourceNotFoundException {
 		Feature feature = findFeatureByName(featureName);
 		User user = findUserByEmail(userEmail);
@@ -27,6 +34,7 @@ public class FeatureUserAccessServiceImpl implements FeatureUserAccessService {
 		return canAccess;
 	}
 	
+	@Override
 	public void configureAccess(String userEmail, String featureName, boolean enable) throws UpdateFailedException {
 		try {
 			Feature feature = findFeatureByName(featureName);

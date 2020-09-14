@@ -7,6 +7,12 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+/**
+ * DTO for feature user access configuration.
+ * 
+ * @author Fletcher Sarip
+ *
+ */
 @Data
 @EqualsAndHashCode
 public class FeatureUserAccessDto {

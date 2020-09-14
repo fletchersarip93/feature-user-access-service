@@ -11,6 +11,12 @@ import com.featureuseraccess.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * User principals service implementation for the authentication of this application.
+ * 
+ * @author Fletcher Sarip
+ *
+ */
 @Service
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class UserDetailsServiceImpl implements UserDetailsService {
