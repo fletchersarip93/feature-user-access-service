@@ -141,5 +141,7 @@ Important points:
      should be one of the existing entities in the database.
    * Doing POST on any non-existing user email or non-existing feature name will return 304 Not Modified response. This is because the API expects that the given user email or feature name
      should be one of the existing entities in the database.
+   * Doing POST with imperfect request body (missing mandatory parameters, missing the request body itself, or invalid JSON syntax in the request body) will return 400 Bad Request with
+     relevant error message.
 3. Call the API (both GET and POST) with HTTP Basic Authentication using any other user without "PRODUCT_MANAGER" authority, e.g. username = "ben@emaildomain.com" and password = "abc123"
    (ignore the quotes), expect the API to return 403 Forbidden. This is to show that the API cannot be used by a user that does not have Product Manager authority.
