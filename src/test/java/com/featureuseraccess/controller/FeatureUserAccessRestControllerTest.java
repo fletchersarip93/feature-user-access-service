@@ -25,9 +25,9 @@ import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.featureuseraccess.controller.exception.ResourceNotFoundException;
 import com.featureuseraccess.service.ErrorMessageFactory;
 import com.featureuseraccess.service.FeatureUserAccessService;
+import com.featureuseraccess.service.ResourceNotFoundException;
 
 @WebMvcTest(FeatureUserAccessRestController.class)
 @WithMockUser(authorities = "PRODUCT_MANAGER")

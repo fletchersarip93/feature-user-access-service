@@ -3,7 +3,6 @@ package com.featureuseraccess.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.featureuseraccess.controller.exception.ResourceNotFoundException;
 import com.featureuseraccess.entity.Feature;
 import com.featureuseraccess.entity.User;
 import com.featureuseraccess.repository.FeatureRepository;

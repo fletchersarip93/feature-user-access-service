@@ -1,4 +1,4 @@
-package com.featureuseraccess.controller.exception;
+package com.featureuseraccess.controller;
 
 import java.util.Collections;
 import java.util.stream.Collectors;
@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import com.featureuseraccess.service.ResourceNotFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {

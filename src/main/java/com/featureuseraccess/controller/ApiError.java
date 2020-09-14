@@ -1,4 +1,4 @@
-package com.featureuseraccess.controller.exception;
+package com.featureuseraccess.controller;
 
 import java.util.List;
 

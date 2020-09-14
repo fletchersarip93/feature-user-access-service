@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.featureuseraccess.controller.exception.ResourceNotFoundException;
 import com.featureuseraccess.dto.FeatureUserAccessDto;
 import com.featureuseraccess.service.FeatureUserAccessService;
+import com.featureuseraccess.service.ResourceNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 

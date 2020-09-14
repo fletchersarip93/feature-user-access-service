@@ -18,7 +18,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.featureuseraccess.controller.exception.ResourceNotFoundException;
 import com.featureuseraccess.entity.Feature;
 import com.featureuseraccess.entity.User;
 import com.featureuseraccess.repository.FeatureRepository;

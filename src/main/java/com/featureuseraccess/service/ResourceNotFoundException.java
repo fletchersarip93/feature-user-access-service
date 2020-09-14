@@ -1,4 +1,4 @@
-package com.featureuseraccess.controller.exception;
+package com.featureuseraccess.service;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
