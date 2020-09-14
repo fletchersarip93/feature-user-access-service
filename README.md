@@ -70,7 +70,7 @@ The API is implemented using Spring Boot with the following main components:
   - Feature
   - Authority
 
-## Database
+## Database Schema
 The database is using H2 embedded database.  
 The following image shows the database schema designed for this API.
 
