@@ -21,7 +21,7 @@ import com.featureuseraccess.service.ResourceNotFoundException;
 import com.featureuseraccess.service.UpdateFailedException;
 
 /**
- * Exception handlers of the API.
+ * Exception handlers of the REST controller.
  * 
  * @author Fletcher Sarip
  *
