@@ -645,5 +645,21 @@ class UserFeatureAccessServiceApplicationTests {
 		.andExpect(status().is(400))
 		.andExpect(jsonPath("messages", hasItem(ENABLE_MUST_NOT_BE_NULL)));
 	}
+	
+	// test malformed JSON request body
+	@Test
+	public void whenPostFeatureWithMalformedJsonRequestBodyReturn400BadRequest() throws JSONException, Exception {
+		JSONObject requestBody = new JSONObject();
+		requestBody.put("email", USER_EMAIL);
+		requestBody.put("featureName", FEATURE_NAME);
+		requestBody.put("enable", true);
+		
+		mockMvc
+		.perform(post("/feature")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(requestBody.toString().replace("}", ",}")))
+		.andExpect(status().is(400))
+		.andExpect(jsonPath("messages", hasItem(containsString("JSON parse error"))));
+	}
 
 }
