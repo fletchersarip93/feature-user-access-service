@@ -95,41 +95,45 @@ The demo data created in the "import.sql" is as follows:
   - fletchersarip@emaildomain.com:
     - password: abc123
     - authorities:
-      - product_manager
-      - developer
-      - user
-  - jack@emaildomain.com [abc123] (developer, user)
+      - PRODUCT_MANAGER
+      - DEVELOPER
+      - USER
+  - jack@emaildomain.com
     - password: abc123
     - authorities:
-      - developer
-      - user
-  - daniel@emaildomain.com [abc123] (developer, user)
+      - DEVELOPER
+      - USER
+  - daniel@emaildomain.com
     - password: abc123
     - authorities:
-      - developer
+      - DEVELOPER
       - user
-  - ben@emaildomain.com [abc123] (developer, user)
+  - ben@emaildomain.com
     - password: abc123
     - authorities:
-      - developer
-      - user
+      - DEVELOPER
+      - USER
 - Features:
   - feature-1
   - feature-2
   - feature-3
   - feature-4
+- Authorities:
+  - PRODUCT_MANAGER
+  - DEVELOPER
+  - USER
 
 Note that the passwords are stored in BCrypt hashed form in the database, hence you won't see the same password shown below in the "import.sql".
 
 Important points:
 - Initial state of the demo data will have all users not having access to any of the features (the feature_user_access table is empty).
-- Only fletchersarip@emaildomain.com has the "product_manager" authority, which means **only the fletchersarip@emaildomain.com user is authorized to use this API**.
+- Only fletchersarip@emaildomain.com has the "PRODUCT_MANAGER" authority, which means **only the fletchersarip@emaildomain.com user is authorized to use this API**.
 
 ## Demo Instruction
 1. Run the Spring Boot application **UserFeatureAccessServiceApplication**.
-2. Call the API (both GET and POST) with HTTP Basic Authentication using user with "product_manager" authority, i.e. username = "fletchersarip@emaildomain.com" and password = "abc123"
+2. Call the API (both GET and POST) with HTTP Basic Authentication using user with "PRODUCT_MANAGER" authority, i.e. username = "fletchersarip@emaildomain.com" and password = "abc123"
    (ignore the quotes), expect that the API should work as follows:
    * At first all users should have no access to all features. So doing GET on any user and feature should return canAccess=FALSE.
    * After doing POST to enable features on some users, doing GET on the respective user and feature should then return canAccess=TRUE.
-3. Call the API (both GET and POST) with HTTP Basic Authentication using any other user without "product_manager" authority, e.g. username = "ben@emaildomain.com" and password = "abc123"
+3. Call the API (both GET and POST) with HTTP Basic Authentication using any other user without "PRODUCT_MANAGER" authority, e.g. username = "ben@emaildomain.com" and password = "abc123"
    (ignore the quotes), expect the API to return 403 Forbidden.
