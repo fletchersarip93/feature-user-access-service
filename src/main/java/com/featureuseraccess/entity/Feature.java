@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 
@@ -28,6 +30,10 @@ public class Feature {
 	private String name;
 	
 	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "feature_user_access",
+			joinColumns = @JoinColumn(name = "feature_id"),
+			inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> usersAllowed = new ArrayList<>();
 
 	public boolean checkAllows(User user) {

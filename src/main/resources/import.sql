@@ -1,11 +1,11 @@
-INSERT INTO authority (id, authority) VALUES (1, 'PRODUCT_MANAGER');
-INSERT INTO authority (id, authority) VALUES (2, 'USER');
-INSERT INTO authority (id, authority) VALUES (3, 'DEVELOPER');
+INSERT INTO authority (id, authority) VALUES (1, 'product_manager');
+INSERT INTO authority (id, authority) VALUES (2, 'developer');
+INSERT INTO authority (id, authority) VALUES (3, 'user');
 
-INSERT INTO user (id, email, password, enabled, expired, account_expired, credentials_expired, locked) VALUES (1, 'fletchersarip@gmail.com', '$2y$11$WBktA7QiZhtmmLJ.Y2BJDu1mfCX4CB4.6IiMozbGyoCv60cdNJLiu', TRUE, FALSE, FALSE, FALSE, FALSE);
-INSERT INTO user (id, email, password, enabled, expired, account_expired, credentials_expired, locked) VALUES (2, 'jack@gmail.com', '$2y$11$WBktA7QiZhtmmLJ.Y2BJDu1mfCX4CB4.6IiMozbGyoCv60cdNJLiu', TRUE, FALSE, FALSE, FALSE, FALSE);
-INSERT INTO user (id, email, password, enabled, expired, account_expired, credentials_expired, locked) VALUES (3, 'daniel@gmail.com', '$2y$11$WBktA7QiZhtmmLJ.Y2BJDu1mfCX4CB4.6IiMozbGyoCv60cdNJLiu', TRUE, FALSE, FALSE, FALSE, FALSE);
-INSERT INTO user (id, email, password, enabled, expired, account_expired, credentials_expired, locked) VALUES (4, 'ben@gmail.com', '$2y$11$WBktA7QiZhtmmLJ.Y2BJDu1mfCX4CB4.6IiMozbGyoCv60cdNJLiu', TRUE, FALSE, FALSE, FALSE, FALSE);
+INSERT INTO user (id, email, password, enabled, expired, account_expired, credentials_expired, locked) VALUES (1, 'fletchersarip@emaildomain.com', '$2y$11$rPf4cvOMC7jBSlKAypMmhOOXocdapZe/WwZtIZO/cS.4CI/z49/v2', TRUE, FALSE, FALSE, FALSE, FALSE);
+INSERT INTO user (id, email, password, enabled, expired, account_expired, credentials_expired, locked) VALUES (2, 'jack@emaildomain.com', '$2y$11$rPf4cvOMC7jBSlKAypMmhOOXocdapZe/WwZtIZO/cS.4CI/z49/v2', TRUE, FALSE, FALSE, FALSE, FALSE);
+INSERT INTO user (id, email, password, enabled, expired, account_expired, credentials_expired, locked) VALUES (3, 'daniel@emaildomain.com', '$2y$11$rPf4cvOMC7jBSlKAypMmhOOXocdapZe/WwZtIZO/cS.4CI/z49/v2', TRUE, FALSE, FALSE, FALSE, FALSE);
+INSERT INTO user (id, email, password, enabled, expired, account_expired, credentials_expired, locked) VALUES (4, 'ben@emaildomain.com', '$2y$11$rPf4cvOMC7jBSlKAypMmhOOXocdapZe/WwZtIZO/cS.4CI/z49/v2', TRUE, FALSE, FALSE, FALSE, FALSE);
 
 INSERT INTO user_authority (user_id, authority_id) VALUES (1, 1);
 INSERT INTO user_authority (user_id, authority_id) VALUES (1, 2);
