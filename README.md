@@ -125,7 +125,7 @@ The demo data created in the "import.sql" is as follows:
   - DEVELOPER
   - USER
 
-Note that the passwords are stored in BCrypt hashed form in the database, hence you won't see the same password shown below in the "import.sql".
+Note that the passwords are stored in BCrypt hashed form in the database, hence you won't see the same password shown above in the "import.sql".
 
 Important points:
 - Initial state of the demo data will have all users not having access to any of the features (the feature_user_access table is empty).
