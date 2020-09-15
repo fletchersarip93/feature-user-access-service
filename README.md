@@ -1,6 +1,6 @@
 # Feature User Access API Summary
 API for Product Managers to manage users’ accesses to features, i.e. enabling/disabling certain feature based on a user’s email and feature names.  
-Please see the file **api-specification.yaml** for the detailed API specification.
+This is a brief summary of the API. For more detailed API specification, please see the file **api-specification.yaml**.
 
 ## Version: 1.0.0
 
@@ -71,6 +71,7 @@ The API is implemented using Spring Boot with the following main components:
   - Authority
 
 ## Database Schema
+The database is using H2 embedded database.  
 The following image shows the database schema designed for this API.
 
 ![](./database-schema-er-diagram.png "Database Schema ER Diagram")
@@ -84,7 +85,7 @@ non-existence of the row for a user and a feature signify that there is no acces
 
 ## Security Implementation
 The security implemented for the API is:
-- Using HTTP Basic Authentication
+- HTTP Basic Authentication
 - JDBC authentication: the user credentials are stored in the embedded H2 database
 - Password encoder: BCrypt with 11 rounds
 
@@ -124,7 +125,7 @@ The demo data created in the "import.sql" is as follows:
   - DEVELOPER
   - USER
 
-Note that the passwords are stored in BCrypt hashed form in the database, hence you won't see the same password shown below in the "import.sql".
+Note that the passwords are stored in BCrypt hashed form in the database, hence you won't see the same password shown above in the "import.sql".
 
 Important points:
 - Initial state of the demo data will have all users not having access to any of the features (the feature_user_access table is empty).
