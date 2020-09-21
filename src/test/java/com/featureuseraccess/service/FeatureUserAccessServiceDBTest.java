@@ -21,9 +21,10 @@ import com.featureuseraccess.entity.Feature;
 import com.featureuseraccess.entity.User;
 import com.featureuseraccess.repository.FeatureRepository;
 import com.featureuseraccess.repository.UserRepository;
+import com.featureuseraccess.service.db.FeatureUserAccessServiceDB;
 
 @ExtendWith(SpringExtension.class)
-class FeatureUserAccessServiceImplTest {
+class FeatureUserAccessServiceDBTest {
 	
 	private static final String FEATURE_NAME = "inventory-management-feature";
 	private static final String FEATURE_NAME_NOT_ALLOWED = "very-important-feature-name";
@@ -35,7 +36,7 @@ class FeatureUserAccessServiceImplTest {
 		
         @Bean
         public FeatureUserAccessService employeeService() {
-            return new FeatureUserAccessServiceImpl();
+            return new FeatureUserAccessServiceDB();
         }
         
     }

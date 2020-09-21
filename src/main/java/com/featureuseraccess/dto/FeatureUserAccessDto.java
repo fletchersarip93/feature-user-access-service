@@ -4,8 +4,10 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * DTO for feature user access configuration.
@@ -15,6 +17,8 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 public class FeatureUserAccessDto {
 
 	@NotBlank

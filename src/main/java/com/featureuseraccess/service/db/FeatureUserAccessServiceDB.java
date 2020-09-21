@@ -1,14 +1,17 @@
-package com.featureuseraccess.service;
+package com.featureuseraccess.service.db;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.featureuseraccess.entity.Feature;
 import com.featureuseraccess.entity.User;
 import com.featureuseraccess.repository.FeatureRepository;
 import com.featureuseraccess.repository.UserRepository;
-
-import lombok.NoArgsConstructor;
+import com.featureuseraccess.service.ErrorMessageFactory;
+import com.featureuseraccess.service.FeatureUserAccessService;
+import com.featureuseraccess.service.ResourceNotFoundException;
+import com.featureuseraccess.service.UpdateFailedException;
 
 /**
  * Implementation of the Feature User Access Service for handling access permission of a certain user for a certain feature.
@@ -17,8 +20,8 @@ import lombok.NoArgsConstructor;
  *
  */
 @Service
-@NoArgsConstructor
-public class FeatureUserAccessServiceImpl implements FeatureUserAccessService {
+@Primary
+public class FeatureUserAccessServiceDB implements FeatureUserAccessService {
 	
 	@Autowired
 	private FeatureRepository featureRepository;

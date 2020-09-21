@@ -21,8 +21,6 @@ import com.featureuseraccess.service.FeatureUserAccessService;
 import com.featureuseraccess.service.ResourceNotFoundException;
 import com.featureuseraccess.service.UpdateFailedException;
 
-import lombok.RequiredArgsConstructor;
-
 /**
  * REST controller to expose the Feature User Access Service.
  * 
@@ -31,11 +29,11 @@ import lombok.RequiredArgsConstructor;
  */
 @RestController
 @RequestMapping("/feature")
-@RequiredArgsConstructor(onConstructor_ = @Autowired)
 @Validated
 public class FeatureUserAccessRestController {
 	
-	private final FeatureUserAccessService featureUserAccessService;
+	@Autowired
+	private FeatureUserAccessService featureUserAccessService;
 	
 	/**
 	 * Get the access permission of the given user email for the given feature name.
